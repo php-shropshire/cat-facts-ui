@@ -60,7 +60,7 @@
                         type: 'POST',
                         url: '/subscribe/' + $('input[type=tel]').val(),
                         data: {},
-                        timeout: 400,
+                        timeout: 1000,
                         error: function (jqXHR, textStatus, errorThrown) {
                             $.alert({
                                 title: 'Failure!',
