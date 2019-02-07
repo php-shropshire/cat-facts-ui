@@ -48,14 +48,39 @@
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous"></script>
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
         <script>
             $(document).ready(function() {
                 $('.form').submit(function(event) {
                     event.preventDefault();
 
-                    $.post('/subscribe/' + $('input[type=tel]').val(), function (data, status) {
-                        console.log(data);
-                        console.log(status);
+                    $.ajax({
+                        type: 'POST',
+                        url: '/subscribe/' + $('input[type=tel]').val(),
+                        data: {},
+                        timeout: 400,
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $.alert({
+                                title: 'Failure!',
+                                content: 'There has been an error subscribing to cat facts! :(',
+                            });
+                        },
+                        success: function (data, textStatus) {
+                            if (data['success']) {
+                                $.alert({
+                                    title: 'Success!',
+                                    content: 'You are now subscribed to cat facts!',
+                                });
+                            } else {
+                                $.alert({
+                                    title: 'Failure!',
+                                    content: 'There has been an error subscribing to cat facts! :(',
+                                });
+                            }
+
+                        }
                     });
                 });
             });
