@@ -19,7 +19,7 @@ $app->post('/subscribe/[{number}]', function (Request $request, Response $respon
 
     try {
         $kafka = $this->get('kafka');
-        $topic = $kafka->newTopic("test");
+        $topic = $kafka->newTopic("cat_fact_subscribe");
         $topic->produce(RD_KAFKA_PARTITION_UA, 0, json_encode($event));
 
         return $response->withJson([
