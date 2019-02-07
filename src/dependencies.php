@@ -17,3 +17,11 @@ $container['logger'] = function ($c) {
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
     return $logger;
 };
+
+// kafka
+$container['kafka'] = function ($c) {
+    $settings = $c->get('settings')['kafka'];
+    $rk = new RdKafka\Producer();
+    $rk->addBrokers($settings['brokers']);
+    return $rk;
+};
